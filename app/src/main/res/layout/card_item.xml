@@ -22,33 +22,17 @@
 
             <ImageView
                 android:id="@+id/imgBanner"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"/>
+                style="@style/MovieImageViewPortrait" />
 
             <TextView
                 android:id="@+id/tvMovieTitle"
-                android:padding="8dp"
-                tools:text="Titulo"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                style="@style/MovieTitleTextView"
+                tools:text="Titulo"/>
 
             <TextView
                 android:id="@+id/tvMovieDescription"
-                android:padding="8dp"
-                tools:text="Contenido"
-                android:maxLines="8"
-                android:minLines="8"
-                android:ellipsize="end"
-                android:textSize="15sp"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                style="@style/MovieDescriptionTextView"
+                tools:text="Contenido" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

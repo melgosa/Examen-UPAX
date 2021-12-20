@@ -22,4 +22,42 @@
     <style name="Theme.ExamenKotlin.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.ExamenKotlin.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="MovieImageViewPortrait">
+        <item name="android:contentDescription">@string/img_descr_imagen_movie</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/img_movie_height</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@mipmap/ic_launcher</item>
+    </style>
+
+    <style name="MovieImageViewLand">
+        <item name="android:contentDescription">@string/img_descr_imagen_movie</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@mipmap/ic_launcher</item>
+    </style>
+
+    <style name="MovieTitleTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/movie_title_size</item>
+        <item name="android:padding">@dimen/movie_text_padding</item>
+    </style>
+
+    <style name="MovieDescriptionTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/movie_descr_size</item>
+        <item name="android:padding">@dimen/movie_text_padding</item>
+        <item name="android:maxLines">@integer/movie_descr_max_lines</item>
+        <item name="android:minLines">@integer/movie_descr_max_lines</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginStart">@dimen/movie_text_padding</item>
+    </style>
 </resources>

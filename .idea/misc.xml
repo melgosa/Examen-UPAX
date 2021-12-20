@@ -10,7 +10,9 @@
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1828774062816616" />
         <entry key="app/src/main/res/layout/fragment_movies.xml" value="0.1828774062816616" />
         <entry key="app/src/main/res/layout/fragment_upload_images.xml" value="0.1828774062816616" />
+        <entry key="app/src/main/res/layout/nav_header_main.xml" value="0.1828774062816616" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.37025641025641026" />
+        <entry key="app/src/main/res/menu/main.xml" value="0.31296296296296294" />
       </map>
     </option>
   </component>

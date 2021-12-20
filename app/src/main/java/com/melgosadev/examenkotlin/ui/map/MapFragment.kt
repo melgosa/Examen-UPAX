@@ -1,6 +1,10 @@
 package com.melgosadev.examenkotlin.ui.map
 
 import android.app.AlertDialog
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,17 +42,22 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        createMapFragment()
-        mapViewModel.getAllLocations()
-        //Se observa la variable de interes, en este caso un marker personalizado (De la data class
-        //MarkerData
-        mapViewModel.markerData.observe(viewLifecycleOwner, { markerData ->
-            createMarker(markerData)
-        })
-        //Se observa la variable de interes, en este caso un mensaje de error al obtener las ubicaciones
-        mapViewModel.errorMessage.observe(viewLifecycleOwner, { errorMessage ->
-            showDialog(errorMessage)
-        })
+
+        if(internetAvailable(requireContext())){
+            createMapFragment()
+            mapViewModel.getAllLocations()
+            //Se observa la variable de interes, en este caso un marker personalizado (De la data class
+            //MarkerData
+            mapViewModel.markerData.observe(viewLifecycleOwner, { markerData ->
+                createMarker(markerData)
+            })
+            //Se observa la variable de interes, en este caso un mensaje de error al obtener las ubicaciones
+            mapViewModel.errorMessage.observe(viewLifecycleOwner, { errorMessage ->
+                showDialog(errorMessage)
+            })
+        }else{
+            showDialog(getString(R.string.dialog_content_error_internet))
+        }
         return root
     }
 
@@ -103,5 +112,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 show()
             }
         }
+    }
+
+    /**
+     * Se verifica la conexión a internet
+     */
+    private fun internetAvailable(context: Context): Boolean {
+        val cmg = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            cmg.getNetworkCapabilities(cmg.activeNetwork)?.let { networkCapabilities ->
+                return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                        || networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+            }
+        } else {
+            return cmg.activeNetworkInfo?.isConnectedOrConnecting == true
+        }
+
+        return false
     }
 }

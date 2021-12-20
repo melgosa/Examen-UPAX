@@ -8,24 +8,21 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.melgosadev.examenkotlin.ExamenKotlinApplication
+import com.melgosadev.examenkotlin.data.MoviesRepository
 import com.melgosadev.examenkotlin.domain.GetNowPlayingMoviesFromDBUseCase
 import com.melgosadev.examenkotlin.domain.GetNowPlayingMoviesUseCase
 import com.melgosadev.examenkotlin.models.NowPlayingMovies
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import org.jetbrains.anko.doAsync
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val getNowPlayingMoviesUseCase: GetNowPlayingMoviesUseCase,
     private val getNowPlayingMoviesFromDBUseCase: GetNowPlayingMoviesFromDBUseCase,
-
+    private val moviesRepository: MoviesRepository,
 ) : ViewModel() {
     val nowPlayingMovies = MutableLiveData<NowPlayingMovies>()
-
-    private val db = ExamenKotlinApplication.database.moviesDao()
 
     /**
      * Se consume el servicio web de Películas de Now Playing y cuando cambia la variable de interés
@@ -38,23 +35,18 @@ class MoviesViewModel @Inject constructor(
 
                 if(result != null){
                     nowPlayingMovies.value = result!!
-                    doAsync {
-                        db.deleteNowPlayingMovies()
+                        moviesRepository.deleteMovies()
                         nowPlayingMovies.let {
                             for (movie in result.results){
-                                db.addMovie(movie)
+                                moviesRepository.addMovie(movie)
                             }
                         }
-                    }
                 }
             }
         }else{
             viewModelScope.launch {
                 val result = getNowPlayingMoviesFromDBUseCase()
-                Log.d("MOVIES JJJJJ", result.results[0].title)
-                if(result != null){
-                    nowPlayingMovies.value = result!!
-                }
+                nowPlayingMovies.value = result!!
             }
         }
     }

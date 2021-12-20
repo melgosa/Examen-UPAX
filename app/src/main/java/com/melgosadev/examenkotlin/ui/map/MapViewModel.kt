@@ -1,12 +1,10 @@
 package com.melgosadev.examenkotlin.ui.map
 
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.melgosadev.examenkotlin.R
 import com.melgosadev.examenkotlin.models.MarkerData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -60,9 +58,9 @@ class MapViewModel : ViewModel() {
         //Ejemplo del valor devuelto por firebasestore
         //Timestamp(seconds=1639935303, nanoseconds=905000000)
         //Se obtiene el valor que solo correspondea los segundos
-        val timeStamp = text.substring(18,28).toLong()
         //Se formatea la la fecha a partir de un timestamp (Long)
         return try {
+            val timeStamp = text.substring(18,28).toLong()
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
             val netDate = Date(timeStamp * 1000)
             sdf.format(netDate)

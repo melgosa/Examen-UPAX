@@ -67,8 +67,6 @@ dependencies {
     // Room
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    //Anko
-    implementation 'org.jetbrains.anko:anko-common:0.10.8'
     //dagger hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
